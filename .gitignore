@@ -1,1 +1,6 @@
 /target/
+/.settings/
+/.metadata/
+.classpath
+.project
+org.eclipse.*

@@ -25,7 +25,9 @@ public class ListCampaignsController implements Serializable {
 
     @Inject
     private CampaignProducer campaignProducer;
-    
+
+    private Campaign campaignToDelete;
+
     //----------------------------------------------------------------------------------------------
 
     public String doAddCampaign() {
@@ -46,10 +48,15 @@ public class ListCampaignsController implements Serializable {
     public String doListDonations(Campaign campaign) {
         campaignProducer.setSelectedCampaign(campaign);
         return Pages.LIST_DONATIONS;
-        }
-    
+    }
+
     public void doDeleteCampaign(Campaign campaign) {
-        System.out.println("Deletion not implemented, yet!");
+        this.campaignToDelete = campaign;
+        System.out.println("Aktion zum löschen vorgemerkt");
+    }
+
+    public void commitDeleteCampaign() {
+        System.out.println("Aktion löschen noch nicht implementiert");
     }
 
     //----------------------------------------------------------------------------------------------

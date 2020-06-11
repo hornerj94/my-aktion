@@ -20,3 +20,12 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure for Students (d67e4eff-f95b-4837-b21e-2daef7374625)'
+    appType: 'webAppLinux'
+    WebAppName: 'tech-recruiting'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'WILDFLY|14-jre8'

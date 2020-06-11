@@ -27,5 +27,5 @@ steps:
     azureSubscription: 'Azure for Students (d67e4eff-f95b-4837-b21e-2daef7374625)'
     appType: 'webAppLinux'
     WebAppName: 'tech-recruiting'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.war'
     RuntimeStack: 'WILDFLY|14-jre8'

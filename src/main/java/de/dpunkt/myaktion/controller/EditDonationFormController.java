@@ -36,6 +36,24 @@ public class EditDonationFormController implements Serializable {
 
     //----------------------------------------------------------------------------------------------
 
+    public String getTextColor() {
+        return textColor;
+    }
+
+    public void setTextColor(String textColor) {
+        this.textColor = textColor;
+    }
+
+    public String getBgColor() {
+        return bgColor;
+    }
+
+    public void setBgColor(String bgColor) {
+        this.bgColor = bgColor;
+    }
+
+    //----------------------------------------------------------------------------------------------
+
     public String doOk() {
         return Pages.LIST_CAMPAIGNS;
     }
@@ -58,24 +76,6 @@ public class EditDonationFormController implements Serializable {
         String contextPath = req.getContextPath();
         
         return scheme + "://" + serverName + ":" + serverPort + contextPath;
-    }
-
-    //----------------------------------------------------------------------------------------------
-
-    public String getTextColor() {
-        return textColor;
-    }
-
-    public void setTextColor(String textColor) {
-        this.textColor = textColor;
-    }
-
-    public String getBgColor() {
-        return bgColor;
-    }
-
-    public void setBgColor(String bgColor) {
-        this.bgColor = bgColor;
     }
 
     //----------------------------------------------------------------------------------------------

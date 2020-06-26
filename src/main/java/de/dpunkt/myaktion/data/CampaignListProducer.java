@@ -9,36 +9,47 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.dpunkt.myaktion.model.Account;
 import de.dpunkt.myaktion.model.Campaign;
 import de.dpunkt.myaktion.model.Donation;
 import de.dpunkt.myaktion.model.Donation.Status;
+import de.dpunkt.myaktion.service.CampaignService;
+import de.dpunkt.myaktion.util.Events.Added;
+import de.dpunkt.myaktion.util.Events.Deleted;
 
 /**
  * @author Julian
  */
 @SessionScoped
-@Named
 public class CampaignListProducer implements Serializable {
     //----------------------------------------------------------------------------------------------
 
     private static final long serialVersionUID = -182866064791747156L;
-    
+
     //==============================================================================================
 
     private List<Campaign> campaigns;
 
     //----------------------------------------------------------------------------------------------
 
-    public CampaignListProducer() {
-        campaigns = createMockCampaigns();
+    @Inject
+    private CampaignService campaignService;
+    
+    @PostConstruct
+    public void init() {
+        campaigns = campaignService.getAllCampaigns();
     }
-
     //----------------------------------------------------------------------------------------------
 
+    @Produces
+    @Named
     public List<Campaign> getCampaigns() {
         return campaigns;
     }
@@ -53,7 +64,7 @@ public class CampaignListProducer implements Serializable {
         donation1.setStatus(Status.TRANSFERRED);
         donation1.setAccount(
                 new Account(donation1.getDonorName(), "XXX Bank", "DE44876543210000123456"));
-        
+
         Donation donation2 = new Donation();
         donation2.setDonorName("Karl Meier");
         donation2.setAmount(30d);
@@ -61,11 +72,11 @@ public class CampaignListProducer implements Serializable {
         donation2.setStatus(Status.IN_PROCESS);
         donation2.setAccount(
                 new Account(donation2.getDonorName(), "YYY Bank", "DE44864275310000654321"));
-        
+
         List<Donation> spenden = new LinkedList<>();
         spenden.add(donation1);
         spenden.add(donation2);
-        
+
         Campaign campaign1 = new Campaign();
         campaign1.setName("Trikots für A-Jugend");
         campaign1.setTargetAmount(1000d);
@@ -74,7 +85,7 @@ public class CampaignListProducer implements Serializable {
         campaign1.setId(1L);
         campaign1.setAccount(new Account("Max Mustermann", "ABC Bank", "DE44123456780100200300"));
         campaign1.setDonations(spenden);
-        
+
         Campaign campaign2 = new Campaign();
         campaign2.setName("Rollstuhl für Maria");
         campaign2.setTargetAmount(2500d);
@@ -83,13 +94,22 @@ public class CampaignListProducer implements Serializable {
         campaign2.setId(2L);
         campaign2.setAccount(campaign1.getAccount());
         campaign2.setDonations(spenden);
-        
+
         List<Campaign> ret = new LinkedList<>();
         ret.add(campaign1);
         ret.add(campaign2);
-        
+
         return ret;
     }
-    
+
+    //----------------------------------------------------------------------------------------------
+
+    public void onCampaignAdded(@Observes @Added Campaign campaign) {
+        getCampaigns().add(campaign);
+    }
+
+    public void onCampaignDeleted(@Observes @Deleted Campaign campaign) {
+        getCampaigns().remove(campaign);
+    }
     //----------------------------------------------------------------------------------------------
 }

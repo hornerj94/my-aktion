@@ -7,13 +7,14 @@ package de.dpunkt.myaktion.controller;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
  * @author Julian
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class ListDonationsController implements Serializable {
     //----------------------------------------------------------------------------------------------

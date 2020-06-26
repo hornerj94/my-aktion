@@ -8,6 +8,7 @@ package de.dpunkt.myaktion.data;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
 import de.dpunkt.myaktion.model.Campaign;
@@ -36,6 +37,8 @@ public class CampaignProducer implements Serializable {
 
     //----------------------------------------------------------------------------------------------
 
+    @Produces
+    @Named
     public Campaign getSelectedCampaign() {
         return campaign;
     }
@@ -45,9 +48,13 @@ public class CampaignProducer implements Serializable {
     }
 
     //----------------------------------------------------------------------------------------------
+    
+    @Produces
+    @Named
     public boolean isAddMode() {
         return mode == Mode.ADD;
     }
+    
     public void prepareAddCampaign() {
         this.campaign = new Campaign();
         this.mode = Mode.ADD;

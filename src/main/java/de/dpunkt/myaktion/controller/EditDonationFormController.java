@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import de.dpunkt.myaktion.data.CampaignProducer;
 /**
  * @author Julian
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class EditDonationFormController implements Serializable {
     //----------------------------------------------------------------------------------------------
@@ -33,6 +34,9 @@ public class EditDonationFormController implements Serializable {
 
     @Inject
     private CampaignProducer campaignProducer;
+
+    @Inject
+    private HttpServletRequest req;
 
     //----------------------------------------------------------------------------------------------
 
@@ -67,14 +71,10 @@ public class EditDonationFormController implements Serializable {
     }
 
     private String getAppUrl() {
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
-                .getExternalContext().getRequest();
-        
         String scheme = req.getScheme();
         String serverName = req.getServerName();
         int serverPort = req.getServerPort();
         String contextPath = req.getContextPath();
-        
         return scheme + "://" + serverName + ":" + serverPort + contextPath;
     }
 

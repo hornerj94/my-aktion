@@ -7,14 +7,16 @@ package de.dpunkt.myaktion.controller;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.dpunkt.myaktion.data.CampaignProducer;
 import de.dpunkt.myaktion.model.Campaign;
+import de.dpunkt.myaktion.util.Events.Deleted;
 
-@SessionScoped
+@ViewScoped
 @Named
 public class ListCampaignsController implements Serializable {
     //----------------------------------------------------------------------------------------------
@@ -28,6 +30,9 @@ public class ListCampaignsController implements Serializable {
 
     private Campaign campaignToDelete;
 
+    @Inject @Deleted
+    private Event<Campaign> campaignDeleteEvent;
+    
     //----------------------------------------------------------------------------------------------
 
     public String doAddCampaign() {
@@ -56,8 +61,8 @@ public class ListCampaignsController implements Serializable {
     }
 
     public void commitDeleteCampaign() {
-        System.out.println("Aktion löschen noch nicht implementiert");
+        campaignDeleteEvent.fire(campaignToDelete);
     }
-
+    
     //----------------------------------------------------------------------------------------------
 }

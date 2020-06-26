@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package de.dpunkt.myaktion.service;
+package de.dpunkt.myaktion.services;
 
 import java.util.List;
 

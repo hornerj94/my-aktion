@@ -13,17 +13,26 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.faces.context.FacesContext;
 
+import de.dpunkt.myaktion.util.Log.FachLog;
+import de.dpunkt.myaktion.util.Log.TecLog;
+
 /**
  * @author Julian
  */
 @Dependent
 public class Resources {
-    @Produces
-    public Logger produceLog(InjectionPoint injectionPoint) {
-        return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName(),
-                "messages");
+    @Produces @FachLog
+    public Logger produceFachLog(InjectionPoint injectionPoint) {
+        return Logger.getLogger(
+                "FachLog: " + injectionPoint.getMember().getDeclaringClass().getName(), "messages");
     }
-    
+
+    @Produces @TecLog
+    public Logger produceTecLog(InjectionPoint injectionPoint) {
+        return Logger.getLogger(
+                "TecLog: " + injectionPoint.getMember().getDeclaringClass().getName(), "messages");
+    }
+
     @Produces
     @RequestScoped
     public FacesContext produceFacesContext() {

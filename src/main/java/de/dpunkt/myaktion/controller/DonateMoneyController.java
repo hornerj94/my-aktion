@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.dpunkt.myaktion.model.Donation;
+import de.dpunkt.myaktion.util.Log.FachLog;
 
 /**
  * @author Julian
@@ -43,7 +44,8 @@ public class DonateMoneyController implements Serializable {
 
     @Inject
     private FacesContext facesContext;
-    @Inject
+    
+    @Inject @FachLog
     private Logger logger;
     
     //----------------------------------------------------------------------------------------------

@@ -17,7 +17,6 @@ import de.dpunkt.myaktion.model.Campaign;
  * @author Julian
  */
 @SessionScoped
-@Named
 public class CampaignProducer implements Serializable {
     //----------------------------------------------------------------------------------------------
 

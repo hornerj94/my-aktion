@@ -12,6 +12,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import de.dpunkt.myaktion.util.Log.FachLog;
 import de.dpunkt.myaktion.util.Log.TecLog;
@@ -21,6 +23,10 @@ import de.dpunkt.myaktion.util.Log.TecLog;
  */
 @Dependent
 public class Resources {
+    @Produces
+    @PersistenceContext
+    private EntityManager em;
+    
     @Produces @FachLog
     public Logger produceFachLog(InjectionPoint injectionPoint) {
         return Logger.getLogger(

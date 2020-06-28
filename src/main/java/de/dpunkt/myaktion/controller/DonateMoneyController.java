@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import de.dpunkt.myaktion.model.Donation;
+import de.dpunkt.myaktion.model.Donation.Status;
+import de.dpunkt.myaktion.services.DonationService;
 import de.dpunkt.myaktion.util.Log.FachLog;
 
 /**
@@ -47,6 +49,9 @@ public class DonateMoneyController implements Serializable {
     
     @Inject @FachLog
     private Logger logger;
+    
+    @Inject
+    private DonationService donationService;
     
     //----------------------------------------------------------------------------------------------
 
@@ -91,9 +96,9 @@ public class DonateMoneyController implements Serializable {
 
     //----------------------------------------------------------------------------------------------
 
-    public String doDonation() {
-        logger.log(Level.INFO, "log.donateMoney.thank_you", new 
-                Object[]{getDonation().getDonorName(), getDonation().getAmount()});
+    public String doDonation() {       
+        getDonation().setStatus(Status.IN_PROCESS);
+        donationService.addDonation(getCampaignId(), getDonation());
         
         final ResourceBundle resourceBundle =
                 facesContext.getApplication().getResourceBundle(facesContext, "msg");
@@ -102,6 +107,9 @@ public class DonateMoneyController implements Serializable {
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, null));
         
         init();
+        
+        logger.log(Level.INFO, "log.donateMoney.thank_you", new 
+                Object[]{getDonation().getDonorName(), getDonation().getAmount()});
         
         return Pages.DONATE_MONEY;
     }

@@ -7,21 +7,17 @@ package de.dpunkt.myaktion.services;
 
 import java.util.List;
 
-import de.dpunkt.myaktion.model.Campaign;
+import de.dpunkt.myaktion.model.Donation;
 
 /**
  * @author Julian
  */
-public interface CampaignService {
+public interface DonationService {
     //----------------------------------------------------------------------------------------------
 
-    List<Campaign> getAllCampaigns();
+    List<Donation> getDonationList(Long campaignId);
 
-    void addCampaign(Campaign campaign);
-
-    void deleteCampaign(Campaign campaign);
-
-    void updateCampaign(Campaign campaign);
+    void addDonation(Long campaignId, Donation donation);
 
     //----------------------------------------------------------------------------------------------
 }

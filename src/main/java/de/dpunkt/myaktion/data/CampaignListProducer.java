@@ -6,13 +6,12 @@
 package de.dpunkt.myaktion.data;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -28,28 +27,26 @@ import de.dpunkt.myaktion.util.Log.TecLog;
 /**
  * @author Julian
  */
-@SessionScoped
-public class CampaignListProducer implements Serializable {
+@RequestScoped
+public class CampaignListProducer {
     //----------------------------------------------------------------------------------------------
-
-    private static final long serialVersionUID = -182866064791747156L;
-
-    //==============================================================================================
 
     private List<Campaign> campaigns;
 
-    @Inject @TecLog
+    @Inject
+    @TecLog
     private Logger logger;
 
     //----------------------------------------------------------------------------------------------
 
     @Inject
     private CampaignService campaignService;
-    
+
     @PostConstruct
     public void init() {
         campaigns = campaignService.getAllCampaigns();
     }
+
     //----------------------------------------------------------------------------------------------
 
     @Produces
@@ -61,24 +58,19 @@ public class CampaignListProducer implements Serializable {
     //----------------------------------------------------------------------------------------------
 
     public void onCampaignAdded(@Observes @Added Campaign campaign) {
-        getCampaigns().add(campaign);
+        campaignService.addCampaign(campaign);
+        init();
     }
 
     public void onCampaignDeleted(@Observes @Deleted Campaign campaign) {
-        getCampaigns().remove(campaign);
+        campaignService.deleteCampaign(campaign);
+        init();
     }
 
     public void onCampaignUpdated(@Observes @Updated Campaign campaign) {
-        Iterator<Campaign> it = getCampaigns().iterator();
-        while (it.hasNext()) {
-            Campaign campaignElem = it.next();
-            if (campaignElem.getId() == campaign.getId()) {
-                it.remove();
-            }
-        }
-        
-        getCampaigns().add(campaign);
-        
+        campaignService.updateCampaign(campaign);
+        init();
+
         logger.log(Level.INFO, "Updated campaign with id " + campaign.getId());
     }
 

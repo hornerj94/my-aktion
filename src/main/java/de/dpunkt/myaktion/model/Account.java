@@ -5,14 +5,29 @@
 
 package de.dpunkt.myaktion.model;
 
+import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * @author Julian
  */
+@Embeddable
 public class Account {
     //----------------------------------------------------------------------------------------------
+
+    @NotNull
+    @Size(min = 5, max = 60, message = "{account.name.size}")
     private String name;
+    
+    @NotNull
+    @Size(min = 4, max = 40, message = "{account.nameOfBank.size}")
     private String nameOfBank;
-    private String iban;
+    
+    @NotNull
+    @Pattern(regexp = "[A-Z]{2}[0-9]{2}[A-Z0-9]{12,30}", message = "{account.iban.pattern}")
+    private String iban;    
     
     //----------------------------------------------------------------------------------------------
 

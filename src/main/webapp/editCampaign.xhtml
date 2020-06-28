@@ -19,12 +19,9 @@
                                     value="#{msg['editCampaign.name']}:">
                                 </h:outputLabel>
                                 <p:inputText id="a_name"
-                                    value="#{selectedCampaign.name}"
-                                    validatorMessage="#{msg['editCampaign.campaign_name_validation']}">
+                                    value="#{selectedCampaign.name}">
                                     <f:passThroughAttribute name="placeholder"
                                         value="#{msg['editCampaign.name_of_the_campaign']}" />
-                                    <f:validateRequired />
-                                    <f:validateLength minimum="4" maximum="30" />
                                 </p:inputText>
                                 <p:message for="a_name" />
                                 <h:outputLabel
@@ -32,12 +29,9 @@
                                 </h:outputLabel>
                                 <h:panelGroup>
                                     <p:inputText id="a_targetAmount"
-                                        value="#{selectedCampaign.targetAmount}"
-                                        validatorMessage="#{msg['editCampaign.target_amount_validation']}">
+                                        value="#{selectedCampaign.targetAmount}">
                                         <f:convertNumber maxFractionDigits="2"
                                             minFractionDigits="2" />
-                                        <f:validateRequired />
-                                        <f:validateDoubleRange minimum="10.0" />
                                     </p:inputText> EUR
                                 </h:panelGroup>
                                 <p:message for="a_targetAmount" />
@@ -46,12 +40,9 @@
                                 </h:outputLabel>
                                 <h:panelGroup>
                                     <p:inputText id="a_donationMinimum"
-                                        value="#{selectedCampaign.donationMinimum}"
-                                        validatorMessage="#{msg['editCampaign.donation_amount_validation']}">
+                                        value="#{selectedCampaign.donationMinimum}">
                                         <f:convertNumber maxFractionDigits="2"
                                             minFractionDigits="2" />
-                                        <f:validateRequired />
-                                        <f:validateDoubleRange minimum="1.0" />
                                     </p:inputText> EUR
                                 </h:panelGroup>
                                 <p:message for="a_donationMinimum" />
@@ -64,7 +55,6 @@
                                 </h:outputLabel>
                                 <p:inputText id="b_name"
                                     value="#{selectedCampaign.account.name}">
-                                    <f:validateRequired />
                                 </p:inputText>
                                 <p:message for="b_name" />
                                 <h:outputLabel
@@ -72,7 +62,6 @@
                                 </h:outputLabel>
                                 <p:inputText id="b_iban"
                                     value="#{selectedCampaign.account.iban}">
-                                    <f:validateRequired />
                                 </p:inputText>
                                 <p:message for="b_iban" />
                                 <h:outputLabel
@@ -80,7 +69,6 @@
                                 </h:outputLabel>
                                 <p:inputText id="b_name_bank"
                                     value="#{selectedCampaign.account.nameOfBank}">
-                                    <f:validateRequired />
                                 </p:inputText>
                                 <p:message for="b_name_bank" />
                             </h:panelGrid>

@@ -5,6 +5,7 @@
 
 package de.dpunkt.myaktion.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,14 +72,14 @@ public class CampaignServiceBean implements CampaignService {
 
     //----------------------------------------------------------------------------------------------
 
-    private Double getAmountDonatedSoFar(Campaign campaign) {
-        TypedQuery<Double> query =
-                entityManager.createNamedQuery(Campaign.getAmountDonatedSoFar, Double.class);
+    private BigDecimal getAmountDonatedSoFar(Campaign campaign) {
+        TypedQuery<BigDecimal> query =
+                entityManager.createNamedQuery(Campaign.getAmountDonatedSoFar, BigDecimal.class);
         query.setParameter("campaign", campaign);
 
-        Double result = query.getSingleResult();
+        BigDecimal result = query.getSingleResult();
         if (result == null)
-            result = 0d;
+            result = BigDecimal.ZERO;
 
         return result;
     }

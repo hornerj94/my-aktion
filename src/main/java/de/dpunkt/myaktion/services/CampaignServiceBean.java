@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -22,6 +23,7 @@ import de.dpunkt.myaktion.util.Log.TecLog;
  * @author Julian
  */
 @Stateless
+@Alternative
 public class CampaignServiceBean implements CampaignService {
     //----------------------------------------------------------------------------------------------
 

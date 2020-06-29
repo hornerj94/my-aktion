@@ -32,7 +32,8 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = Campaign.findAll, 
                 query = "SELECT c FROM Campaign c ORDER BY c.name"),
         @NamedQuery(name = Campaign.getAmountDonatedSoFar,
-                query = "SELECT SUM(d.amount) FROM Donation d WHERE d.campaign = :campaign") })
+                query = "SELECT SUM(d.amount) FROM Donation d WHERE d.campaign = :campaign") 
+})
 @Entity
 public class Campaign {
     //----------------------------------------------------------------------------------------------

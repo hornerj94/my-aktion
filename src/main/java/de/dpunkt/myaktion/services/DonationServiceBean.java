@@ -7,6 +7,8 @@ package de.dpunkt.myaktion.services;
 
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -26,6 +28,7 @@ public class DonationServiceBean implements DonationService {
 
     //----------------------------------------------------------------------------------------------
 
+    @RolesAllowed("Organizer")
     @Override
     public List<Donation> getDonationList(Long campaignId) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
@@ -36,6 +39,7 @@ public class DonationServiceBean implements DonationService {
         return donations;
     }
 
+    @PermitAll
     @Override
     public void addDonation(Long campaignId, Donation donation) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);

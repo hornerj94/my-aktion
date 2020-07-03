@@ -10,20 +10,23 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import de.dpunkt.myaktion.model.Campaign;
+import de.dpunkt.myaktion.model.Organizer;
 import de.dpunkt.myaktion.util.Log.TecLog;
 
 /**
  * @author Julian
  */
+@RolesAllowed("Organizer")
 @Stateless
-@Alternative
 public class CampaignServiceBean implements CampaignService {
     //----------------------------------------------------------------------------------------------
 
@@ -34,12 +37,16 @@ public class CampaignServiceBean implements CampaignService {
     @Inject
     EntityManager entityManager;
 
+    @Resource
+    private SessionContext sessionContext;
+
     //----------------------------------------------------------------------------------------------
 
     @Override
     public List<Campaign> getAllCampaigns() {
         TypedQuery<Campaign> query =
-                entityManager.createNamedQuery(Campaign.findAll, Campaign.class);
+                entityManager.createNamedQuery(Campaign.findByOrganizer, Campaign.class);
+        query.setParameter("organizer", getLoggedinOrganizer());
         List<Campaign> campaigns = query.getResultList();
 
         campaigns.forEach(
@@ -54,6 +61,9 @@ public class CampaignServiceBean implements CampaignService {
 
     @Override
     public void addCampaign(Campaign campaign) {
+        Organizer organizer = getLoggedinOrganizer();
+        campaign.setOrganizer(organizer);
+
         entityManager.persist(campaign);
     }
 
@@ -84,6 +94,15 @@ public class CampaignServiceBean implements CampaignService {
             result = BigDecimal.ZERO;
 
         return result;
+    }
+
+    //----------------------------------------------------------------------------------------------
+
+    private Organizer getLoggedinOrganizer() {
+        String organizerEmail = sessionContext.getCallerPrincipal().getName();
+        Organizer organizer = entityManager.createNamedQuery(Organizer.findByEmail, Organizer.class)
+                .setParameter("email", organizerEmail).getSingleResult();
+        return organizer;
     }
 
     //----------------------------------------------------------------------------------------------

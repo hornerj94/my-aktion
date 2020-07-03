@@ -28,6 +28,7 @@ import de.dpunkt.myaktion.util.Log.TecLog;
  * @author Julian
  */
 @Stateless
+@Alternative
 public class CriteriaCampaignServiceBean implements CampaignService {
     //----------------------------------------------------------------------------------------------
 

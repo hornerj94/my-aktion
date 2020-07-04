@@ -13,20 +13,25 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.UserTransaction;
 
 import de.dpunkt.myaktion.model.Campaign;
 import de.dpunkt.myaktion.model.Organizer;
 import de.dpunkt.myaktion.util.Log.TecLog;
+import de.dpunkt.myaktion.util.TransactionInterceptor;
 
 /**
  * @author Julian
  */
 @RolesAllowed("Organizer")
-@Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
+@Interceptors(TransactionInterceptor.class)
 public class CampaignServiceBean implements CampaignService {
     //----------------------------------------------------------------------------------------------
 

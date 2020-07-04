@@ -19,5 +19,7 @@ public interface DonationService {
 
     void addDonation(Long campaignId, Donation donation);
 
+    void transferDonations();
+    
     //----------------------------------------------------------------------------------------------
 }

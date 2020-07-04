@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,9 +22,15 @@ import javax.validation.constraints.Size;
  * @author Julian
  */
 @Entity
+@NamedQueries({ @NamedQuery(name = Donation.findByStatus,
+        query = "SELECT d FROM Donation d WHERE d.status = :status") })
 public class Donation {
     //----------------------------------------------------------------------------------------------
 
+    public static final String findByStatus = "Donation.findByStatus";
+    
+    //==============================================================================================
+    
     @GeneratedValue
     @Id
     private Long id;
@@ -30,21 +38,21 @@ public class Donation {
     @NotNull(message = "{donation.amount.notNull}")
     @DecimalMin(value = "1.00", message = "{donation.amount.decimalMin}")
     private BigDecimal amount;
-  
+
     @NotNull
     @Size(min = 5, max = 40, message = "{donation.donorName.size}")
     private String donorName;
 
     @NotNull
     private Boolean receiptRequested;
-    
+
     @NotNull
     private Status status;
-    
+
     @NotNull
     @Embedded
     private Account account;
-    
+
     @NotNull
     @ManyToOne
     private Campaign campaign;

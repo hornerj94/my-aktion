@@ -13,27 +13,22 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.transaction.UserTransaction;
 
 import de.dpunkt.myaktion.model.Campaign;
 import de.dpunkt.myaktion.model.Organizer;
 import de.dpunkt.myaktion.util.Log.TecLog;
-import de.dpunkt.myaktion.util.TransactionInterceptor;
 
 /**
  * @author Julian
  */
 @RolesAllowed("Organizer")
-@TransactionManagement(TransactionManagementType.BEAN)
-@Interceptors(TransactionInterceptor.class)
+@Stateless
 public class CampaignServiceBean implements CampaignService {
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     @Inject
     @TecLog
@@ -45,7 +40,7 @@ public class CampaignServiceBean implements CampaignService {
     @Resource
     private SessionContext sessionContext;
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     @Override
     public List<Campaign> getAllCampaigns() {
@@ -62,24 +57,22 @@ public class CampaignServiceBean implements CampaignService {
         return campaigns;
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     @Override
     public void addCampaign(Campaign campaign) {
         Organizer organizer = getLoggedinOrganizer();
         campaign.setOrganizer(organizer);
-
         entityManager.persist(campaign);
     }
-
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     @Override
     public void updateCampaign(Campaign campaign) {
         entityManager.merge(campaign);
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     @Override
     public void deleteCampaign(Campaign campaign) {
@@ -87,7 +80,7 @@ public class CampaignServiceBean implements CampaignService {
         entityManager.remove(managedCampaign);
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     private BigDecimal getAmountDonatedSoFar(Campaign campaign) {
         TypedQuery<BigDecimal> query =
@@ -101,7 +94,7 @@ public class CampaignServiceBean implements CampaignService {
         return result;
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 
     private Organizer getLoggedinOrganizer() {
         String organizerEmail = sessionContext.getCallerPrincipal().getName();
@@ -110,5 +103,5 @@ public class CampaignServiceBean implements CampaignService {
         return organizer;
     }
 
-    //----------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------
 }

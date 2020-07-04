@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  * @author Julian
  */
 @Embeddable
-public class Account {
+public class Account extends DateEntity {
     //----------------------------------------------------------------------------------------------
 
     @NotNull

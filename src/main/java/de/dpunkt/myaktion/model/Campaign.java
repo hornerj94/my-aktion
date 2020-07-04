@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -36,7 +37,8 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = Campaign.getAmountDonatedSoFar,
                 query = "SELECT SUM(d.amount) FROM Donation d WHERE d.campaign = :campaign") })
 @Entity
-public class Campaign {
+@EntityListeners(EntityCreationListener.class)
+public class Campaign extends DateEntity {
     public static final String findByOrganizer = "Campaign.findByOrganizer";
     
     public static final String findAll = "Campaign.findAll";

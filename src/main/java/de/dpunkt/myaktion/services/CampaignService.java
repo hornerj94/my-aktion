@@ -17,11 +17,15 @@ public interface CampaignService {
 
     List<Campaign> getAllCampaigns();
 
-    void addCampaign(Campaign campaign);
-
+    Campaign addCampaign(Campaign campaign);
+    
     void deleteCampaign(Campaign campaign);
 
+    void deleteCampaign(Long campaignId);
+    
     void updateCampaign(Campaign campaign);
 
+    Campaign getCampaign(Long campaignId);
+    
     //----------------------------------------------------------------------------------------------
 }

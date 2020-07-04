@@ -19,7 +19,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({ @NamedQuery(name = Organizer.findByEmail,
         query = "SELECT o FROM Organizer o WHERE o.email = :email") })
 @Entity
-public class Organizer {
+public class Organizer extends DateEntity {
     public static final String findByEmail = "Organizer.findByEmail";
 
     @NotNull

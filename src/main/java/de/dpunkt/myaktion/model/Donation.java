@@ -24,7 +24,7 @@ import javax.validation.constraints.Size;
 @Entity
 @NamedQueries({ @NamedQuery(name = Donation.findByStatus,
         query = "SELECT d FROM Donation d WHERE d.status = :status") })
-public class Donation {
+public class Donation extends DateEntity {
     //----------------------------------------------------------------------------------------------
 
     public static final String findByStatus = "Donation.findByStatus";

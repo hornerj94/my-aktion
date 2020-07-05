@@ -23,15 +23,15 @@ public class CampaignResource {
 
     @GET
     @Path("/list")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
     public List<Campaign> getAllCampaigns() {
         List<Campaign> allCampaigns = campaignService.getAllCampaigns();
-
+        
         allCampaigns.forEach(campaign -> {
             campaign.setDonations(null);
             campaign.setOrganizer(null);
         });
-
+        
         return allCampaigns;
     }
 
@@ -58,11 +58,11 @@ public class CampaignResource {
         campaign.setName(newCampaign.getName());
         campaign.setDonationMinimum(newCampaign.getDonationMinimum());
         campaign.setTargetAmount(newCampaign.getTargetAmount());
-        
+
         newCampaign = campaignService.updateCampaign(campaign);
         newCampaign.setDonations(null);
         newCampaign.setOrganizer(null);
-        
+
         return newCampaign;
     }
 }

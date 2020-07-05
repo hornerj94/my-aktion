@@ -25,6 +25,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Julian
@@ -36,6 +37,7 @@ import javax.validation.constraints.Size;
                 query = "SELECT a FROM Campaign a ORDER BY a.name"),
         @NamedQuery(name = Campaign.getAmountDonatedSoFar,
                 query = "SELECT SUM(d.amount) FROM Donation d WHERE d.campaign = :campaign") })
+@XmlRootElement
 @Entity
 @EntityListeners(EntityCreationListener.class)
 public class Campaign extends DateEntity {

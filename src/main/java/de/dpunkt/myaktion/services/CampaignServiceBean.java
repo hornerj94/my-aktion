@@ -64,15 +64,15 @@ public class CampaignServiceBean implements CampaignService {
         Organizer organizer = getLoggedinOrganizer();
         campaign.setOrganizer(organizer);
         entityManager.persist(campaign);
-        
+
         return campaign;
     }
 
     // ----------------------------------------------------------------------------------------------
 
     @Override
-    public void updateCampaign(Campaign campaign) {
-        entityManager.merge(campaign);
+    public Campaign updateCampaign(Campaign campaign) {
+        return entityManager.merge(campaign);
     }
 
     // ----------------------------------------------------------------------------------------------
@@ -83,14 +83,16 @@ public class CampaignServiceBean implements CampaignService {
         entityManager.remove(managedCampaign);
     }
 
+    @Override
     public void deleteCampaign(Long campaignId) {
         Campaign managedCampaign = getCampaign(campaignId);
         entityManager.remove(managedCampaign);
     }
 
+    @Override
     public Campaign getCampaign(Long campaignId) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
-  
+
         return managedCampaign;
     }
 

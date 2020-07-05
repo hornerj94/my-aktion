@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -45,5 +46,23 @@ public class CampaignResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Campaign addCampaign(Campaign campaign) {
         return campaignService.addCampaign(campaign);
+    }
+
+    @PUT
+    @Path("/{campaignId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Campaign updateCampaign(@PathParam(value = "campaignId") Long campaignId,
+            Campaign newCampaign) {
+        Campaign campaign = campaignService.getCampaign(campaignId);
+        campaign.setName(newCampaign.getName());
+        campaign.setDonationMinimum(newCampaign.getDonationMinimum());
+        campaign.setTargetAmount(newCampaign.getTargetAmount());
+        
+        newCampaign = campaignService.updateCampaign(campaign);
+        newCampaign.setDonations(null);
+        newCampaign.setOrganizer(null);
+        
+        return newCampaign;
     }
 }

@@ -23,8 +23,8 @@ public interface CampaignService {
 
     void deleteCampaign(Long campaignId);
     
-    void updateCampaign(Campaign campaign);
-
+    Campaign updateCampaign(Campaign campaign);
+    
     Campaign getCampaign(Long campaignId);
     
     //----------------------------------------------------------------------------------------------

@@ -40,7 +40,7 @@ public class DonationServiceBean implements DonationService {
 
     //----------------------------------------------------------------------------------------------
 
-    @RolesAllowed("Organizer")
+    //@RolesAllowed("Organizer")
     @Override
     public List<Donation> getDonationList(Long campaignId) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
@@ -52,7 +52,7 @@ public class DonationServiceBean implements DonationService {
     }
 
     @Override
-    @PermitAll
+    //@PermitAll
     public void addDonation(Long campaignId, Donation donation) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
         donation.setCampaign(managedCampaign);
@@ -61,7 +61,7 @@ public class DonationServiceBean implements DonationService {
     }
 
     @Override
-    @PermitAll
+    //@PermitAll
     public void transferDonations() {
         logger.log(Level.INFO, "log.transferDonation.start");
 
@@ -76,7 +76,7 @@ public class DonationServiceBean implements DonationService {
     }
 
     @Override
-    @PermitAll
+    //@PermitAll
     public List<Donation> getDonationListPublic(Long campaignId) throws ObjectNotFoundException {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
         if (managedCampaign == null) {

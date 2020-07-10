@@ -25,7 +25,7 @@ import de.dpunkt.myaktion.util.Log.TecLog;
 /**
  * @author Julian
  */
-@RolesAllowed("Organizer")
+//@RolesAllowed("Organizer")
 @Stateless
 public class CampaignServiceBean implements CampaignService {
     // ----------------------------------------------------------------------------------------------

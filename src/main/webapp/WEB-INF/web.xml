@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-	<login-config>
+	<!-- <login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
 			<form-login-page>/login.jsf</form-login-page>
@@ -29,9 +29,9 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	</security-constraint>
 	<security-role>
 		<role-name>Organizer</role-name>
-	</security-role>
+	</security-role> 
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 </web-app>

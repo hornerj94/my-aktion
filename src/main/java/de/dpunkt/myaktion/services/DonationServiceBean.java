@@ -51,8 +51,8 @@ public class DonationServiceBean implements DonationService {
         return donations;
     }
 
-    @PermitAll
     @Override
+    @PermitAll
     public void addDonation(Long campaignId, Donation donation) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
         donation.setCampaign(managedCampaign);

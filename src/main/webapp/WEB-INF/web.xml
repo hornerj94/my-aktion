@@ -2,24 +2,21 @@
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
-http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+            http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-	<!-- <login-config>
-		<auth-method>FORM</auth-method>
-		<form-login-config>
-			<form-login-page>/login.jsf</form-login-page>
-			<form-error-page>/loginError.jsf</form-error-page>
-		</form-login-config>
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<realm-name>my-aktion authentification</realm-name>
 	</login-config>
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>organizer</web-resource-name>
 			<url-pattern>/organizer/*</url-pattern>
 		</web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>organizer access via REST</web-resource-name>
-            <url-pattern>/rest/organizer/*</url-pattern>
-        </web-resource-collection>
+		<web-resource-collection>
+			<web-resource-name>organizer access via REST</web-resource-name>
+			<url-pattern>/rest/organizer/*</url-pattern>
+		</web-resource-collection>
 		<auth-constraint>
 			<role-name>Organizer</role-name>
 		</auth-constraint>
@@ -29,9 +26,9 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	</security-constraint>
 	<security-role>
 		<role-name>Organizer</role-name>
-	</security-role> 
+	</security-role>
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping> -->
+	</servlet-mapping>
 </web-app>

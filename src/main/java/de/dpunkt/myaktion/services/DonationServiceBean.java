@@ -40,7 +40,7 @@ public class DonationServiceBean implements DonationService {
 
     //----------------------------------------------------------------------------------------------
 
-    //@RolesAllowed("Organizer")
+    @RolesAllowed("Organizer")
     @Override
     public List<Donation> getDonationList(Long campaignId) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
@@ -51,8 +51,8 @@ public class DonationServiceBean implements DonationService {
         return donations;
     }
 
+    @PermitAll
     @Override
-    //@PermitAll
     public void addDonation(Long campaignId, Donation donation) {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
         donation.setCampaign(managedCampaign);
@@ -60,8 +60,8 @@ public class DonationServiceBean implements DonationService {
         entityManager.persist(donation);
     }
 
+    @PermitAll
     @Override
-    //@PermitAll
     public void transferDonations() {
         logger.log(Level.INFO, "log.transferDonation.start");
 
@@ -75,23 +75,23 @@ public class DonationServiceBean implements DonationService {
         logger.log(Level.INFO, "log.transferDonation.done", new Object[] { donations.size() });
     }
 
+    @PermitAll
     @Override
-    //@PermitAll
     public List<Donation> getDonationListPublic(Long campaignId) throws ObjectNotFoundException {
         Campaign managedCampaign = entityManager.find(Campaign.class, campaignId);
         if (managedCampaign == null) {
             throw new ObjectNotFoundException();
         }
-        
+
         List<Donation> donations = managedCampaign.getDonations();
         final Function<Donation, Donation> donationFilter = donation -> {
             Donation filtered = new Donation();
             filtered.setAmount(donation.getAmount());
             filtered.setDonorName(donation.getDonorName());
-            
+
             return filtered;
         };
-        
+
         return donations.stream().map(donationFilter).collect(Collectors.toList());
     }
 

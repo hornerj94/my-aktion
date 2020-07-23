@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
 
-    <persistence-unit name="primary" transaction-type="JTA">
-        <!-- Use the Hibernate OGM provider: configuration will be transparent -->
-        <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
-        <properties>
-            <!-- Here you will pick which NoSQL technology to use, and configure it;
-                 in this example we start a local in-memory Infinispan node. -->
-            <property name="hibernate.ogm.datastore.provider" value="MONGODB"/>
-            <property name="hibernate.ogm.datastore.host" value="127.0.0.1"/>
-            <property name="hibernate.ogm.mongodb.port" value="27017"/>
-            <property name="hibernate.ogm.datastore.database" value="my-aktion"/>
-        </properties>
-    </persistence-unit>
+	<persistence-unit name="primary"
+		transaction-type="JTA">
+		<provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+
+		<class>de.dpunkt.myaktion.model.Account</class>
+		<class>de.dpunkt.myaktion.model.Campaign</class>
+		<class>de.dpunkt.myaktion.model.Donation</class>
+		<class>de.dpunkt.myaktion.model.Organizer</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.transaction.jta.platform"
+				value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<property name="hibernate.ogm.datastore.database"
+				value="my-aktion" />
+			<property name="hibernate.ogm.datastore.host"
+				value="localhost" />
+			<property name="hibernate.ogm.datastore.provider"
+				value="MONGODB" />
+		</properties>
+	</persistence-unit>
 </persistence>

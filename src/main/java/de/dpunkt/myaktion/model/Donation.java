@@ -5,8 +5,6 @@
 
 package de.dpunkt.myaktion.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,16 +26,16 @@ public class Donation extends DateEntity {
     //----------------------------------------------------------------------------------------------
 
     public static final String findByStatus = "Donation.findByStatus";
-    
+
     //==============================================================================================
-    
+
     @GeneratedValue
     @Id
     private Long id;
 
     @NotNull(message = "{donation.amount.notNull}")
     @DecimalMin(value = "1.00", message = "{donation.amount.decimalMin}")
-    private BigDecimal amount;
+    private Double amount;
 
     @NotNull
     @Size(min = 5, max = 40, message = "{donation.donorName.size}")
@@ -79,11 +77,11 @@ public class Donation extends DateEntity {
         this.id = id;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

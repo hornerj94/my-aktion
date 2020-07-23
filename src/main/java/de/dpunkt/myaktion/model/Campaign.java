@@ -5,7 +5,6 @@
 
 package de.dpunkt.myaktion.model;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -41,10 +40,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @EntityListeners(EntityCreationListener.class)
 public class Campaign extends DateEntity {
+    //----------------------------------------------------------------------------------------------
+
     public static final String findByOrganizer = "Campaign.findByOrganizer";
-    
+
     public static final String findAll = "Campaign.findAll";
-    
+
     public static final String getAmountDonatedSoFar = "Campaign.getAmountDonatedSoFar";
 
     //==============================================================================================
@@ -59,14 +60,14 @@ public class Campaign extends DateEntity {
 
     @NotNull(message = "{campaign.targetAmount.notNull}")
     @DecimalMin(value = "10.00", message = "{campaign.targetAmount.decimalMin}")
-    private BigDecimal targetAmount;
+    private Double targetAmount;
 
     @NotNull(message = "{campaign.donationMinimum.notNull}")
     @DecimalMin(value = "1.00", message = "{campaign.donationMinimum.decimalMin}")
-    private BigDecimal donationMinimum;
+    private Double donationMinimum;
 
     @Transient
-    private BigDecimal amountDonatedSoFar;
+    private Double amountDonatedSoFar;
 
     @Embedded
     @AttributeOverrides({
@@ -87,6 +88,14 @@ public class Campaign extends DateEntity {
 
     //----------------------------------------------------------------------------------------------
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -95,27 +104,27 @@ public class Campaign extends DateEntity {
         this.name = name;
     }
 
-    public BigDecimal getTargetAmount() {
+    public Double getTargetAmount() {
         return targetAmount;
     }
 
-    public void setTargetAmount(BigDecimal targetAmount) {
+    public void setTargetAmount(Double targetAmount) {
         this.targetAmount = targetAmount;
     }
 
-    public BigDecimal getDonationMinimum() {
+    public Double getDonationMinimum() {
         return donationMinimum;
     }
 
-    public void setDonationMinimum(BigDecimal donationMinimum) {
+    public void setDonationMinimum(Double donationMinimum) {
         this.donationMinimum = donationMinimum;
     }
 
-    public BigDecimal getAmountDonatedSoFar() {
+    public Double getAmountDonatedSoFar() {
         return amountDonatedSoFar;
     }
 
-    public void setAmountDonatedSoFar(BigDecimal amountDonatedSoFar) {
+    public void setAmountDonatedSoFar(Double amountDonatedSoFar) {
         this.amountDonatedSoFar = amountDonatedSoFar;
     }
 
@@ -125,14 +134,6 @@ public class Campaign extends DateEntity {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public List<Donation> getDonations() {

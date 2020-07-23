@@ -54,8 +54,13 @@
             </h:outputLabel>
             <h:panelGroup>
                 <p:inputText id="donationAmount"
-                        value="#{donateMoneyController.donation.amount}">
-                    <f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+                        value="#{donateMoneyController.donation.amount}"
+                        onchange="
+                            if(value !== '') {
+                                if(value.indexOf('.') === -1) {
+                                    document.getElementById('j_idt8:tabView:donationAmount').value = value + '.00';
+                                }
+                            }">
                 </p:inputText> EUR
             </h:panelGroup>
             <p:message for="donationAmount" style="color: red;" />

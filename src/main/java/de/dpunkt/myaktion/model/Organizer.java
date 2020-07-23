@@ -6,6 +6,7 @@
 package de.dpunkt.myaktion.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,8 +21,16 @@ import javax.validation.constraints.Size;
         query = "SELECT o FROM Organizer o WHERE o.email = :email") })
 @Entity
 public class Organizer extends DateEntity {
+    //----------------------------------------------------------------------------------------------
+
     public static final String findByEmail = "Organizer.findByEmail";
 
+    //==============================================================================================
+
+    @GeneratedValue
+    @Id
+    private Long id;
+    
     @NotNull
     @Size(min = 3, max = 20, message = "{organizer.firstName.size}")
     private String firstName;
@@ -30,12 +39,21 @@ public class Organizer extends DateEntity {
     @Size(min = 3, max = 30, message = "{organizer.lastName.size}")
     private String lastName;
 
-    @Id
     @Pattern(regexp = ".+@.+", message = "{organizer.email.pattern}")
     private String email;
 
     @NotNull
     private String password;
+
+    //----------------------------------------------------------------------------------------------
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -68,4 +86,6 @@ public class Organizer extends DateEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    //----------------------------------------------------------------------------------------------
 }

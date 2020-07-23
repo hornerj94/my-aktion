@@ -7,8 +7,6 @@ package de.dpunkt.myaktion.model;
 
 import java.util.Date;
 
-import javax.persistence.EntityListeners;
-
 /**
  * @author Julian
  *

@@ -1,6 +1,5 @@
 package de.dpunkt.myaktion.resources;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,7 +44,7 @@ public class DonationResource {
             @FormParam(value = "receiptRequested") Boolean receiptRequested) {
         Donation donation = new Donation();
         donation.setDonorName(donorName);
-        donation.setAmount(new BigDecimal(amount));
+        donation.setAmount(amount);
 
         Account account = new Account();
         account.setIban(iban);

@@ -21,8 +21,12 @@ import de.dpunkt.myaktion.services.exceptions.ObjectNotFoundException;
 
 @Path("/")
 public class DonationResource {
+    //----------------------------------------------------------------------------------------------
+
     @Inject
     private DonationService donationService;
+
+    //----------------------------------------------------------------------------------------------
 
     @GET
     @Path("/organizer/donation/list/{campaignId}")
@@ -33,6 +37,8 @@ public class DonationResource {
 
         return donations;
     }
+
+    //----------------------------------------------------------------------------------------------
 
     @POST
     @Path("/donation/{campaignId}")
@@ -58,6 +64,8 @@ public class DonationResource {
         donationService.addDonation(campaignId, donation);
     }
 
+    //----------------------------------------------------------------------------------------------
+
     @GET
     @Path("/donation/list/{campaignId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,4 +79,6 @@ public class DonationResource {
             return Response.status(javax.ws.rs.core.Response.Status.NOT_FOUND).build();
         }
     }
+
+    //----------------------------------------------------------------------------------------------
 }

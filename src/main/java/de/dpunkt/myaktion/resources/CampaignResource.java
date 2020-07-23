@@ -18,8 +18,12 @@ import de.dpunkt.myaktion.services.CampaignService;
 
 @Path("/organizer/campaign")
 public class CampaignResource {
+    //----------------------------------------------------------------------------------------------
+
     @Inject
     private CampaignService campaignService;
+
+    //----------------------------------------------------------------------------------------------
 
     @GET
     @Path("/list")
@@ -35,11 +39,15 @@ public class CampaignResource {
         return allCampaigns;
     }
 
+    //----------------------------------------------------------------------------------------------
+
     @DELETE
     @Path("/{campaignId}")
     public void deleteAktion(@PathParam(value = "campaignId") Long campaignId) {
         campaignService.deleteCampaign(campaignId);
     }
+
+    //----------------------------------------------------------------------------------------------
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -47,6 +55,8 @@ public class CampaignResource {
     public Campaign addCampaign(Campaign campaign) {
         return campaignService.addCampaign(campaign);
     }
+
+    //----------------------------------------------------------------------------------------------
 
     @PUT
     @Path("/{campaignId}")
@@ -65,4 +75,6 @@ public class CampaignResource {
 
         return newCampaign;
     }
+
+    //----------------------------------------------------------------------------------------------
 }

@@ -1,8 +1,3 @@
-/*
- * Copyright 2019 (C) by Julian Horner.
- * All Rights Reserved.
- */
-
 package de.dpunkt.myaktion.scheduler;
 
 import javax.ejb.Schedule;
